@@ -2,13 +2,19 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"practice/mysort"
 	"time"
 )
 
-var sortTestSli = []int{3, 5, 2, 1, 20, 6, 8, 7, 9, 4, 10, 19, 18, 16, 15, 13, 14, 12, 11, 17}
+const sortSliLength = 50
+
+var sortTestSli []int
 
 func main() {
+	sortTestSli = genRandSli(sortSliLength)
+	fmt.Println("Input slice:", sortTestSli)
+
 	mergeSortTest()
 	sleepSortTest()
 }
@@ -31,4 +37,22 @@ func sleepSortTest() {
 	var timeElapsed = timeEnd.Sub(timeStart).Nanoseconds() / 1000000
 
 	fmt.Println(`Sleep Sort:`, res, "time:", timeElapsed, "ms")
+}
+
+func genRandSli(num int) []int {
+	var resSli []int
+	var avoidDupMap = make(map[int]bool)
+
+	for i := 0; i < num; i++ {
+		var resNum = rand.Intn(num)
+		if _, ok := avoidDupMap[resNum]; !ok {
+			avoidDupMap[resNum] = true
+			resSli = append(resSli, resNum)
+		} else {
+			i--
+			continue
+		}
+	}
+
+	return resSli
 }

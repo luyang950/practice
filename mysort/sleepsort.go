@@ -26,7 +26,7 @@ func SleepSort(inputSli []int) []int {
 }
 
 func sleep(inputNum int, outputChan chan int) {
-	time.Sleep(time.Millisecond * time.Duration(inputNum*10))
+	time.Sleep(time.Millisecond * time.Duration(inputNum*1))
 
 	outputChan <- inputNum
 }
